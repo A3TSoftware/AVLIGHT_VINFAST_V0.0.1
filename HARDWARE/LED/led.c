@@ -1,0 +1,114 @@
+////////////////////////////////////////////////////////////////////////////////
+/// @file    led.c
+/// @author  AE TEAM
+/// @brief   THIS FILE PROVIDES ALL THE SYSTEM FUNCTIONS.
+////////////////////////////////////////////////////////////////////////////////
+/// @attention
+///
+/// THE EXISTING FIRMWARE IS ONLY FOR REFERENCE, WHICH IS DESIGNED TO PROVIDE
+/// CUSTOMERS WITH CODING INFORMATION ABOUT THEIR PRODUCTS SO THEY CAN SAVE
+/// TIME. THEREFORE, MINDMOTION SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT OR
+/// CONSEQUENTIAL DAMAGES ABOUT ANY CLAIMS ARISING OUT OF THE CONTENT OF SUCH
+/// HARDWARE AND/OR THE USE OF THE CODING INFORMATION CONTAINED HEREIN IN
+/// CONNECTION WITH PRODUCTS MADE BY CUSTOMERS.
+///
+/// <H2><CENTER>&COPY; COPYRIGHT MINDMOTION </CENTER></H2>
+////////////////////////////////////////////////////////////////////////////////
+
+// Define to prevent recursive inclusion
+#define _LED_C_
+
+// Files includes
+
+
+#include "led.h"
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// @addtogroup MM32_Example_Layer
+/// @{
+
+////////////////////////////////////////////////////////////////////////////////
+/// @addtogroup LED
+/// @{
+
+////////////////////////////////////////////////////////////////////////////////
+/// @addtogroup LED_Exported_Constants
+/// @{
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief  initialize LED GPIO pin
+/// @note   if use jtag/swd interface GPIO PIN as LED, need to be careful,
+///         can not debug or program.
+/// @param  None.
+/// @retval None.
+////////////////////////////////////////////////////////////////////////////////
+//void LED_Init(void)
+//{
+//    GPIO_InitTypeDef  GPIO_InitStructure;
+
+//    RCC_AHBPeriphClockCmd(RCC_AHBENR_GPIOA, ENABLE);
+//    GPIO_StructInit(&GPIO_InitStructure);
+//    GPIO_InitStructure.GPIO_Pin  =  LED1_Pin;
+//    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+//    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+//    GPIO_Init(LED1_Port, &GPIO_InitStructure);
+
+
+//    LED1_OFF();
+//    LED1_ON();
+
+//}
+
+ 
+
+void OUTPUT_Init(void)
+{
+	GPIO_InitTypeDef  gpioInitialize;
+	RCC_AHBPeriphClockCmd(RCC_AHBENR_GPIOA, ENABLE);
+	
+	GPIO_StructInit(&gpioInitialize);
+	//gpioInitialize.GPIO_Pin = GPIO_Pin_5 |  GPIO_Pin_6 | GPIO_Pin_4 | GPIO_Pin_9 ;
+	gpioInitialize.GPIO_Pin = GPIO_Pin_4 | GPIO_Pin_10  | GPIO_Pin_9 |GPIO_Pin_8 | GPIO_Pin_5 |  GPIO_Pin_6 | GPIO_Pin_15 ;
+	gpioInitialize.GPIO_Speed = GPIO_Speed_50MHz ;
+	gpioInitialize.GPIO_Mode = GPIO_Mode_Out_PP;
+	
+	GPIO_Init(GPIOA, &gpioInitialize);
+	
+
+}
+
+
+void INPUT_Init(void)
+{
+    GPIO_InitTypeDef gpioInputInitialize;
+    RCC_AHBPeriphClockCmd(RCC_AHBENR_GPIOA, ENABLE);
+
+    GPIO_StructInit(&gpioInputInitialize);
+    gpioInputInitialize.GPIO_Pin = GPIO_Pin_1 | GPIO_Pin_5 | GPIO_Pin_6 | GPIO_Pin_11 ;
+		//gpioInputInitialize.GPIO_Pin = GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_7 |GPIO_Pin_11 |GPIO_Pin_12 ;
+    gpioInputInitialize.GPIO_Speed = GPIO_Speed_50MHz;
+    gpioInputInitialize.GPIO_Mode = GPIO_Mode_FLOATING;
+
+    GPIO_Init(GPIOA, &gpioInputInitialize);
+}
+
+/*
+
+pa1 - turn right
+pa5 - turn left
+pa6 - hazard
+pa11 - ignition
+
+*/
+
+
+
+
+
+/// @}
+
+/// @}
+
+/// @}
